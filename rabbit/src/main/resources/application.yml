@@ -1,0 +1,14 @@
+spring:
+  rabbitmq:
+    #host: '192.168.222.129'
+    #port: 5672
+    #username: admin
+    #password: admin
+    #virtual-host: my_vhost
+    addresses: amqp://admin:admin@192.168.222.129:5672/my_vhost
+    dynamic: true
+    listener:
+      simple:
+        acknowledge-mode: auto
+server:
+  port: 8213
