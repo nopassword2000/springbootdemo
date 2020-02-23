@@ -13,7 +13,11 @@ public class SpringbootApplication implements CommandLineRunner {
     ApplicationContext context;
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringbootApplication.class, args);
+         SpringApplication.run(SpringbootApplication.class, args);
+/*        SpringApplication springApplication = new SpringApplication(SpringbootApplication.class);
+        springApplication.addInitializers(new MyApplicationContextInitalizer());
+        springApplication.addListeners(new MyApplicationListener());
+        springApplication.run(args);*/
     }
 
 
