@@ -20,4 +20,5 @@ public class config {
         registrationBean.setUrlPatterns(arrayList);
         return registrationBean;
     }
+
 }

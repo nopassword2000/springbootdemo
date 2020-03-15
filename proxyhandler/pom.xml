@@ -8,10 +8,10 @@
         <version>2.1.8.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.nio</groupId>
-    <artifactId>nio</artifactId>
-    <version>0.0.1</version>
-    <name>nio</name>
+    <groupId>com.proxyhandler</groupId>
+    <artifactId>proxyhandler</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>proxyhandler</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
