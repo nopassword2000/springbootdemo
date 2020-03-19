@@ -12,9 +12,7 @@ import java.io.IOException;
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodType;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
+import java.lang.reflect.*;
 import java.net.URL;
 
 @SpringBootApplication
@@ -23,8 +21,8 @@ public class ProxyApplication {
     public static void main(String[] args) throws  Exception, Throwable{
         //ConfigurableApplicationContext configurableApplicationContext = SpringApplication.run(ProxyApplication.class, args);
 
-
-
+        System.getProperties().put("jdk.proxy.ProxyGenerator.saveGeneratedFiles", "true");
+        //System.setProperty("java.lang.invoke.MethodHandle.DEBUG_NAMES", "true");
         SB hsb = new SB();
         MethodType methodType = MethodType.methodType(void.class);
         MethodHandle methodHandle = MethodHandles.lookup().findVirtual(SB.class,"sayProxy", methodType);
@@ -58,11 +56,24 @@ public class ProxyApplication {
          */
 
 
-
+        //private ProxyGenerator(String var1, Class<?>[] var2, int var3) {
+/*        Constructor<ProxyGenerator> constructors = ProxyGenerator.class.getDeclaredConstructor(String.class,Class[].class,int.class);
+        constructors.setAccessible(true);
+        ProxyGenerator proxyGenerator = constructors.newInstance("aa",null, 2);*/
+        Field[] fields = ProxyGenerator.class.getDeclaredFields();
+        for (Field f : fields){
+            if ( f.getName().equals("saveGeneratedFiles")) {
+                f.setAccessible(true);
+                Field modifiers = Field.class.getDeclaredField("modifiers");
+                modifiers.setAccessible(true);
+                modifiers.setInt(f,  f.getModifiers() & ~Modifier.FINAL);
+                f.setBoolean(null,new Boolean(true));
+            }
+        }
         Object object = Proxy.newProxyInstance(SB.class.getClassLoader(),SB.class.getInterfaces(),new ProxyInvokerHandler(new SB()));
         ISB sb = (ISB)object;
         sb.sayProxy();
-        saveClassFile(object.getClass(), object.getClass().getName());
+       // saveClassFile(object.getClass(), object.getClass().getName());
 
         /**
          * cglib

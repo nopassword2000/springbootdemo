@@ -18,6 +18,8 @@ import sun.misc.ProxyGenerator;
 import tk.mybatis.spring.annotation.MapperScan;
 
 import java.io.FileOutputStream;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.lang.reflect.Proxy;
 import java.util.List;
 import java.util.Properties;
@@ -34,10 +36,19 @@ public class MybatisApplication implements CommandLineRunner {
 
     String path = MybatisApplication.class.getResource(".").getPath();
 
-    public static void main(String[] args) {
+    public static void main(String[] args)  throws Exception{
 
 
-
+        Field[] fields = ProxyGenerator.class.getDeclaredFields();
+        for (Field f : fields){
+            if ( f.getName().equals("saveGeneratedFiles")) {
+                f.setAccessible(true);
+                Field modifiers = Field.class.getDeclaredField("modifiers");
+                modifiers.setAccessible(true);
+                modifiers.setInt(f,  f.getModifiers() & ~Modifier.FINAL);
+                f.setBoolean(null,new Boolean(true));
+            }
+        }
         String path = MybatisApplication.class.getResource("/").getPath() + "proxyA/";
         System.setProperty(DebuggingClassWriter.DEBUG_LOCATION_PROPERTY, path);
         SpringApplication.run(MybatisApplication.class, args);
