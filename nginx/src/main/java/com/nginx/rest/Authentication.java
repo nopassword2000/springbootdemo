@@ -81,4 +81,9 @@ public class Authentication {
         tokenMap.put(xTokenVal, userInfo);
         return ResultMode.sucess(userInfo);
     }
+
+    @GetMapping("/hello")
+    public String hello(){
+        return "hello";
+    }
 }

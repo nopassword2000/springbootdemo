@@ -1,0 +1,13 @@
+server:
+  ssl:
+    enabled: true
+    key-store: file:F:/wmContos/vmShare/cert/server.pfx
+    key-alias: 1
+    key-store-type: JKS
+    key-store-password: 123456
+
+    trust-store: file:F:/wmContos/vmShare/cert/client.keystore
+    trust-store-password: 123456
+    trust-store-type: JKS
+    client-auth: need
+

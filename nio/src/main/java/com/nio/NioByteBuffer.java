@@ -35,6 +35,7 @@ public class NioByteBuffer {
         //FileOutputStream fileOutputStream = new FileOutputStream(file); //C:\Users\Administrator\Desktopspring类继承.doc
         RandomAccessFile randomAccessFile = new RandomAccessFile("F:\\wmContos\\contos_1\\contos_1-s002.vmdk","rw");
         FileChannel fileChannel = randomAccessFile.getChannel();
+
         MappedByteBuffer mappedByteBuffer = fileChannel.map(FileChannel.MapMode.READ_ONLY, 0,fileChannel.size());
         while (mappedByteBuffer.hasRemaining()){
 

@@ -14,6 +14,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cglib.core.DebuggingClassWriter;
 import org.springframework.context.ApplicationContext;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.multipart.MultipartFile;
 import sun.misc.ProxyGenerator;
 import tk.mybatis.spring.annotation.MapperScan;
 
@@ -21,6 +22,7 @@ import java.io.FileOutputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Proxy;
+import java.nio.channels.FileChannel;
 import java.util.List;
 import java.util.Properties;
 @EnableTransactionManagement
@@ -38,6 +40,10 @@ public class MybatisApplication implements CommandLineRunner {
 
     public static void main(String[] args)  throws Exception{
 
+
+        MultipartFile multipartFile;
+
+        FileChannel fileChannel;
 
         Field[] fields = ProxyGenerator.class.getDeclaredFields();
         for (Field f : fields){
