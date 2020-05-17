@@ -6,8 +6,9 @@ server:
     key-store-type: JKS
     key-store-password: 123456
 
-    #trust-store: file:F:/wmContos/vmShare/cert/client.keystore
-    #trust-store-password: 123456
-    #trust-store-type: JKS
-    #client-auth: need
+    trust-store: file:F:/wmContos/vmShare/cert/client.keystore
+    trust-store-password: 123456
+    trust-store-type: JKS
+    client-auth: need
+    enabled-protocols: TLSv1.2
 

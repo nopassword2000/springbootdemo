@@ -84,6 +84,26 @@ public class Authentication {
 
     @GetMapping("/hello")
     public String hello(){
+        ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletResponse response = servletRequestAttributes.getResponse();
+
+        Cookie cookie = new Cookie(xToken, UUID.randomUUID().toString());
+        cookie.setPath("/");
+        cookie.setComment("this is x token");
+        response.addCookie(cookie);
+        response.addHeader("to","hello,head");
         return "hello";
+    }
+
+    @PostMapping("/helloex")
+    public String helloex(@RequestBody String key){
+        ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletResponse response = servletRequestAttributes.getResponse();
+        Cookie cookie = new Cookie(xToken, UUID.randomUUID().toString());
+        cookie.setPath("/");
+        cookie.setComment("this is x token");
+        response.addCookie(cookie);
+        response.addHeader("to","hello head");
+        return  key;
     }
 }
