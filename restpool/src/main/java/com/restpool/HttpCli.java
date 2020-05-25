@@ -1,4 +1,5 @@
 package com.restpool;
+import org.apache.http.HttpHost;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.config.Registry;
 import org.apache.http.config.RegistryBuilder;
@@ -62,7 +63,7 @@ public class HttpCli {
         manager.setMaxTotal(300);
         manager.setDefaultMaxPerRoute(200);
         manager.setValidateAfterInactivity(5 * 1000);
-
+        //manager.setMaxPerRoute(new HttpRoute(new HttpHost("",80)),10);
         RequestConfig defalutRequestConfig = RequestConfig.custom()
                 .setConnectTimeout(2 * 1000)
                 .setSocketTimeout(5 * 1000)
