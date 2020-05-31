@@ -26,7 +26,11 @@ import org.apache.http.ssl.SSLContextBuilder;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.security.KeyStore;
 import java.util.concurrent.TimeUnit;
 
 
@@ -41,8 +45,20 @@ public class HttpCli {
         if (httpClient != null){
             return httpClient;
         }
+        String PFX_PWD = "123456";
+        String PFX_PATH = "F:\\wmContos\\vmShare\\cert\\client.pfx";
+        KeyStore keyStore = KeyStore.getInstance("PKCS12");
 
-        SSLContext sslContext = new SSLContextBuilder().loadTrustMaterial(null, (arg0, arg1) -> true).build();
+        try(InputStream instream = new FileInputStream(new File(PFX_PATH));){
+            keyStore.load(instream, PFX_PWD.toCharArray());
+        }catch (Exception ex){
+
+            System.out.println("load keystroe is error " + ex.getMessage());
+        }
+        SSLContextBuilder sslContextBuilder = new SSLContextBuilder();
+        //sslContextBuilder.loadKeyMaterial(keyStore,PFX_PWD.toCharArray()).load;
+        //SSLContext sslContext = sslContextBuilder.loadTrustMaterial(null, (arg0, arg1) -> true).build();
+        SSLContext sslContext = sslContextBuilder.loadKeyMaterial(keyStore,PFX_PWD.toCharArray()).loadTrustMaterial(null, (arg0, arg1) -> true).build();
         HostnameVerifier hostnameVerifier = NoopHostnameVerifier.INSTANCE;
         SSLConnectionSocketFactory sslConnectionSocketFactory = new SSLConnectionSocketFactory(sslContext, hostnameVerifier);
         Registry<ConnectionSocketFactory> socketFactoryRegistry = RegistryBuilder.<ConnectionSocketFactory>create()
@@ -60,10 +76,10 @@ public class HttpCli {
         SocketConfig defaultSocketConfig = SocketConfig.custom().setTcpNoDelay(true).build();
         manager.setDefaultSocketConfig(defaultSocketConfig);
 
-        manager.setMaxTotal(300);
-        manager.setDefaultMaxPerRoute(200);
+        manager.setMaxTotal(3000);
+        manager.setDefaultMaxPerRoute(2000);
         manager.setValidateAfterInactivity(5 * 1000);
-        //manager.setMaxPerRoute(new HttpRoute(new HttpHost("",80)),10);
+        manager.setMaxPerRoute(new HttpRoute(new HttpHost("127.0.0.1",8080)),2);
         RequestConfig defalutRequestConfig = RequestConfig.custom()
                 .setConnectTimeout(2 * 1000)
                 .setSocketTimeout(5 * 1000)
