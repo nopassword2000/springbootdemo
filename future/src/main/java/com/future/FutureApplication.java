@@ -13,13 +13,15 @@ public class FutureApplication {
     public static void main(String[] args) throws Exception {
         //SpringApplication.run(FutureApplication.class, args);
 
-        Callable callable = new Callable();
+/*        Callable callable = new Callable();
         Future<Integer> future = callable.runx();
         System.out.println(future.get());
 
         CmpFutrue cmpFutrue = new CmpFutrue();
-        cmpFutrue.run2();
+        cmpFutrue.run2();*/
 
+        CmpFutueRun cmpFutueRun = new CmpFutueRun();
+        cmpFutueRun.runx();
 
     }
 

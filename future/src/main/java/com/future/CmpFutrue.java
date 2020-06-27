@@ -64,4 +64,15 @@ public class CmpFutrue {
             }
         });
     }
+
+    public void run3() throws Exception{
+
+
+        CompletableFuture completableFuture = new CompletableFuture();
+
+        completableFuture.thenApply( (fn) ->{
+
+            return null;
+        });
+    }
 }
