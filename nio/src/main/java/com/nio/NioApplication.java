@@ -17,9 +17,19 @@ public class NioApplication {
         //NioByteBuffer nioByteBuffer = new NioByteBuffer();
         //nioByteBuffer.reandFile();
 
-        AysnFile aysnFile = new AysnFile();
-        aysnFile.asyRead();
-        Thread.currentThread().join();
+       // AysnFile aysnFile = new AysnFile();
+       // aysnFile.asyRead();
+
+        long a = System.currentTimeMillis();
+        FileNIOChannel.runCh();
+        long b = System.currentTimeMillis();
+
+        FileNIOChannel.runByteBuffer();
+        long c = System.currentTimeMillis();
+
+        System.out.println("runch:" + String.valueOf(b-a));
+        System.out.println("runByteBuffer:" + String.valueOf(c-b));
+       // Thread.currentThread().join();
     }
 
 
