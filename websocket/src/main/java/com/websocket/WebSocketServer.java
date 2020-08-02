@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-@ServerEndpoint("/webSocket/{sid}")
+@ServerEndpoint("/chat/{sid}")
 @Service
 public class WebSocketServer {
 
